@@ -4,7 +4,7 @@ var timer;
 var timerCurrent;
 var timerFinish;
 var timerSeconds;
-var pomodoroTimer =  20;
+var pomodoriTime =  20;
 
 //var win = require('nw.gui').Window.get();
 
@@ -89,7 +89,7 @@ function stopWatch() {
 
     if (seconds <= 0) {
 
-        drawTimer(100, pomodoroTimer);
+        drawTimer(100, pomodoriTime);
 
         clearInterval(timer);
 
@@ -137,7 +137,7 @@ $(document).ready(function () {
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
             $('span#watch')[0].setAttribute("value", 'Stop');
             $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle fa-lg startstop');
-            timerSeconds = pomodoroTimer;
+            timerSeconds = pomodoriTime;
             timerCurrent = 0;
             timerFinish = new Date().getTime() + (timerSeconds * 1000);
             timer = setInterval('stopWatch()', 50);
@@ -150,11 +150,8 @@ $(document).ready(function () {
 
     $('span#watch').click();
     
-    drawTimer(0, pomodoroTimer);
-    
-    
-    
-    
+    drawTimer(0, pomodoriTime);
+
     $('span#calendar').click(function(){
         $('.datetime').stop().animate({
                 right: 0    
