@@ -1,0 +1,106 @@
+
+.pomodoro {
+    overflow:hidden;
+    height:150px;
+    width:150px;
+    position:relative;
+}
+.datetime {
+    width:150px;
+    height:150px;
+    position:absolute;
+    top:0;
+    right:-150px;
+}
+
+body {
+    overflow:hidden;
+}
+
+.startstop {
+    -webkit-app-region: no-drag;
+    position: absolute;
+    top: 2px;
+    left: 52px; 
+}
+
+.conf {
+    -webkit-app-region: no-drag;
+    position: absolute;
+    top: 2px;
+    left: 30px; 
+}
+
+.quit {
+    -webkit-app-region: no-drag;
+    position: absolute;
+    top: 2px;
+    left: 100px;    
+}
+
+.date {
+    -webkit-app-region: no-drag;
+    position: absolute;
+    top: 2px;
+    left: 75px;
+}
+
+.pomodori {
+    -webkit-app-region: no-drag;
+    color:red;
+    position: absolute;
+    top: 94px;
+    left: 30px;
+}
+
+.done1 {
+    top:  99px;
+    left: 46px;    
+}
+.done2 {
+    top:  93px;
+    left: 30px;    
+}
+.done3 {
+    top:  83px;
+    left: 18px;    
+}
+.done4 {
+    top: 70px;
+    left: 10px;    
+}
+.done5 {
+    top: 55px;
+    left: 6px;
+}
+.done6 {
+    top: 40px;
+    left: 7px;
+}
+
+.todo1 {
+    top:  99px;
+    left: 63px;    
+}
+.todo2 {
+    top:  93px;
+    left: 77px;    
+}
+.todo3 {
+    top:  83px;
+    left: 89px;    
+}
+.todo4 {
+    top: 70px;
+    left: 98px;    
+}
+.todo5 {
+    top: 55px;
+    left: 101px;    
+}
+.todo6 {
+    top: 40px;
+    left: 100px;    
+}
+
+
