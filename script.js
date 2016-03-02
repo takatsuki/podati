@@ -7,11 +7,12 @@ var timerCurrent;
 var timerFinish;
 var timerSeconds;
 
-var pomodoriTime   =   2; //* 60;
+var pomodoriTime   =  2; //* 60;
 var shortBreakTime =   5; //* 60;
 var longBreakTime  =  15; //* 60;
 
-var pomodoriNb        = 4;
+var pomodoriNb        = 7;
+var pomodoriMaxNb     = 8;
 var pomodoriLongBreak = 4;
 var currentPomodori   = 1;
 var bool = false;
@@ -116,7 +117,8 @@ function stopWatch() {
         $('span#watch')[0].setAttribute("value", 'Start');
 
         timer2 = setInterval('pomodoriEnd()', 500);
-
+        currentPomodori ++;
+        updatePomodori();
     } else {
         percent = 100 - ((seconds / timerSeconds) * 100);
         drawTimer(percent, seconds);
@@ -167,9 +169,27 @@ $(document).ready(function () {
 
     //var win = require('nw.gui').Window.get();
     //win.setAlwaysOnTop(true);
-
+    updatePomodori();
 });
 
+function updatePomodori () {
+
+    for (var i = 1; i <= pomodoriNb; i++) {
+        $('span.pomodori' + i)[0].style.visibility='visible';
+        if ( i < currentPomodori) {
+            $('span.pomodori' + i).removeClass( "fa-circle-o" ).addClass( "fa-circle" );
+        } else {
+            $('span.pomodori' + i).removeClass( "fa-circle" ).addClass( "fa-circle-o" );
+        }
+    } 
+    for (var i = pomodoriNb+1; i <= pomodoriMaxNb; i++) {
+        $('span.pomodori' + i)[0].style.visibility='hidden';
+    }
+
+    if ( currentPomodori > pomodoriNb ) {
+        currentPomodori = 0;
+    }
+}
 
 /*
     Date.prototype.getWeek = function () {
