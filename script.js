@@ -7,7 +7,7 @@ var timerCurrent;
 var timerFinish;
 var timerSeconds;
 
-var pomodoriTime   =  2; //* 60;
+var pomodoriTime   =  25*60; //* 60;
 var shortBreakTime =   5; //* 60;
 var longBreakTime  =  15; //* 60;
 
@@ -109,7 +109,7 @@ function stopWatch() {
 
     if (seconds <= 0) {
 
-        drawTimer(100, pomodoriTime);
+        //drawTimer(100, pomodoriTime);
 
         clearInterval(timer);
 
@@ -135,7 +135,7 @@ $(document).ready(function () {
             timerSeconds = pomodoriTime;
             timerCurrent = 0;
             timerFinish = new Date().getTime() + (timerSeconds * 1000);
-            timer = setInterval('stopWatch()', 100);
+            timer = setInterval('stopWatch()', 50);
             clearInterval(timer2);
         } else {
             $('span#watch')[0].setAttribute("value", 'Start');
