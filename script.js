@@ -7,7 +7,7 @@ var timerCurrent;
 var timerFinish;
 var timerSeconds;
 
-var pomodoriTime   = 25 ; //* 60;
+var pomodoriTime   = 2 ; //* 60;
 var shortBreakTime = 5  ; //* 60;
 var longBreakTime  = 15 ; //* 60;
 
@@ -27,7 +27,7 @@ function pomodoriEnd() {
     var context = canvas.getContext('2d');
     var x = canvas.width / 2;
     var y = canvas.height / 2;
-    var radius = 25;
+    var radius = 26;
     var startAngle = 1.5 * Math.PI;
     var endAngle = 360 * Math.PI/180 + 1.5 * Math.PI;
     var counterClockwise = false;
@@ -36,7 +36,7 @@ function pomodoriEnd() {
 
     context.beginPath();
     context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
-    context.lineWidth = 7;
+    context.lineWidth = 8;
 
     // line color
     if (bool === true) {

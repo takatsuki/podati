@@ -19,7 +19,7 @@ body {
 .startstop {
     -webkit-app-region: no-drag;
     position: absolute;
-    top: 18px;
+    top: 10px;
     left: 139px;
 }
 
