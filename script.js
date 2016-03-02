@@ -7,19 +7,14 @@ var timerCurrent;
 var timerFinish;
 var timerSeconds;
 
-var pomodoriTime   = 2 ; //* 60;
-var shortBreakTime = 5  ; //* 60;
-var longBreakTime  = 15 ; //* 60;
+var pomodoriTime   =   2; //* 60;
+var shortBreakTime =   5; //* 60;
+var longBreakTime  =  15; //* 60;
 
 var pomodoriNb        = 4;
 var pomodoriLongBreak = 4;
 var currentPomodori   = 1;
 var bool = false;
-
-
-
-//var win = require('nw.gui').Window.get();
-
 
 function pomodoriEnd() {
 
@@ -29,7 +24,7 @@ function pomodoriEnd() {
     var y = canvas.height / 2;
     var radius = 26;
     var startAngle = 1.5 * Math.PI;
-    var endAngle = 360 * Math.PI/180 + 1.5 * Math.PI;
+    var endAngle = 360 * Math.PI / 180 + 1.5 * Math.PI;
     var counterClockwise = false;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -48,18 +43,6 @@ function pomodoriEnd() {
     }
     context.stroke();
 
-    
-    Date.prototype.getWeek = function() {
-        var onejan = new Date(this.getFullYear(), 0, 1);
-        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-    }
-
-    var weekNumber = (new Date()).getWeek();
-
-    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var now = new Date();
-    $('#toto').html(dayNames[now.getDay()] + " W" + weekNumber + "</br>" + now);
-    
 }
 
 function get2D(num) {
@@ -90,7 +73,7 @@ function drawTimer(percent, time) {
     var y = canvas.height / 2;
     var radius = 25;
     var startAngle = 1.5 * Math.PI;
-    var endAngle = deg * Math.PI/180 + 1.5 * Math.PI;
+    var endAngle = deg * Math.PI / 180 + 1.5 * Math.PI;
     var counterClockwise = false;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -132,32 +115,15 @@ function stopWatch() {
         $('span#watch')[0].setAttribute("class", 'fa fa-play-circle startstop fa-4x');        
         $('span#watch')[0].setAttribute("value", 'Start');
 
-        /*
-        a_window = window.open('popup.html', {
-                "position": "center",
-                "focus": true,
-                "toolbar": false,
-                "frame": true,
-                "width": 901,
-                "height": 127
-        });
-        */
         timer2 = setInterval('pomodoriEnd()', 500);
-
 
     } else {
         percent = 100 - ((seconds / timerSeconds) * 100);
         drawTimer(percent, seconds);
-    }    
+    }
 }
 
 $(document).ready(function () {
-
-/*    win.setAlwaysOnTop(true);
-    win.setTransparent(0.8);
-*/
-    console.log($('span#watch')[0].getAttribute("value"));
-    console.log($('input[type=button]#watch'));
 
     $('span#watch').click(function (e) {
         e.preventDefault();
@@ -176,10 +142,6 @@ $(document).ready(function () {
         }
     });
 
-    $('span#watch').click();
-    
-    drawTimer(0, pomodoriTime);
-
     $('span#calendar').click(function(){
         $('.datetime').stop().animate({
                 right: 0    
@@ -195,6 +157,41 @@ $(document).ready(function () {
         }, 200);
         $('.pomodoro').stop().animate({
             right: 0
-        }, 200); 
+        }, 200);
     });
+    
+    
+    $('span#watch').click();
+    
+    drawTimer(0, pomodoriTime);    
+
+    //var win = require('nw.gui').Window.get();
+    //win.setAlwaysOnTop(true);
+
 });
+
+
+/*
+    Date.prototype.getWeek = function () {
+        var onejan = new Date(this.getFullYear(), 0, 1);
+        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    };
+
+    var weekNumber = (new Date()).getWeek();
+
+    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var now = new Date();
+    $('#toto').html(dayNames[now.getDay()] + " W" + weekNumber + "</br>" + now);
+
+*/
+
+/*
+a_window = window.open('popup.html', {
+        "position": "center",
+        "focus": true,
+        "toolbar": false,
+        "frame": true,
+        "width": 901,
+        "height": 127
+});
+*/
