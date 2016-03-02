@@ -1,13 +1,66 @@
 "use strict";
 
 var timer;
+var timer2;
+
 var timerCurrent;
 var timerFinish;
 var timerSeconds;
-var pomodoriTime =  20;
+
+var pomodoriTime   = 25 ; //* 60;
+var shortBreakTime = 5  ; //* 60;
+var longBreakTime  = 15 ; //* 60;
+
+var pomodoriNb        = 4;
+var pomodoriLongBreak = 4;
+var currentPomodori   = 1;
+var bool = false;
+
+
 
 //var win = require('nw.gui').Window.get();
 
+
+function pomodoriEnd() {
+
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    var radius = 25;
+    var startAngle = 1.5 * Math.PI;
+    var endAngle = 360 * Math.PI/180 + 1.5 * Math.PI;
+    var counterClockwise = false;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    context.beginPath();
+    context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+    context.lineWidth = 7;
+
+    // line color
+    if (bool === true) {
+        context.strokeStyle = '#d81818';
+        bool = false;
+    } else {
+        context.strokeStyle = '#18d83d';
+        bool = true;
+    }
+    context.stroke();
+
+    
+    Date.prototype.getWeek = function() {
+        var onejan = new Date(this.getFullYear(), 0, 1);
+        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    }
+
+    var weekNumber = (new Date()).getWeek();
+
+    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var now = new Date();
+    $('#toto').html(dayNames[now.getDay()] + " W" + weekNumber + "</br>" + now);
+    
+}
 
 function get2D(num) {
     if (num.toString().length < 2) {// Integer of less than two digits
@@ -35,50 +88,33 @@ function drawTimer(percent, time) {
     var context = canvas.getContext('2d');
     var x = canvas.width / 2;
     var y = canvas.height / 2;
-    var radius = 35;
+    var radius = 25;
     var startAngle = 1.5 * Math.PI;
     var endAngle = deg * Math.PI/180 + 1.5 * Math.PI;
     var counterClockwise = false;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-
-/*
-    context.beginPath();
-    context.beginPath();
-    context.arc(x, y, radius + 7, 0, 2 * Math.PI , counterClockwise);
-    context.lineWidth = 1;
-    context.strokeStyle = '#123456';
-    context.stroke();    
-
-    context.beginPath();
-    context.beginPath();
-    context.arc(x, y, radius - 5, 0, 2 * Math.PI , counterClockwise);
-    context.lineWidth = 1;
-    context.strokeStyle = '#123456';
-    context.stroke();    
-    
-
-    context.beginPath();
-    context.beginPath();
-    context.arc(x, y, radius, 0, 2 * Math.PI , counterClockwise);
-    context.lineWidth = 1;
-    context.fillStyle = 'rgba(83, 156, 229, 0.18)';
-    context.fill();
-    context.strokeStyle = 'rgba(83, 156, 229, 0.18)';
-    context.stroke();  
-*/
     context.beginPath();
     context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
-    context.lineWidth = 10;
+    context.lineWidth = 7;
 
-    context.font = "20px Arial";
-    context.fillText(get2D(displayMin) + ':' + get2D(displaySec), 25, 58);
+    // line color
+    context.strokeStyle = '#d81818';
+
+    context.stroke();
+
+    var canvas = document.getElementById('myCanvas2');
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    context.font = "50px Arial";
+    context.fillText(get2D(displayMin) + ':' + get2D(displaySec), 0, 55);
 
     // line color
     context.strokeStyle = '#198212';
     context.stroke();
-
+    
 }
 
 function stopWatch() {
@@ -93,9 +129,10 @@ function stopWatch() {
 
         clearInterval(timer);
 
-        $('span#watch')[0].setAttribute("class", 'fa fa-play-circle fa-lg startstop');        
+        $('span#watch')[0].setAttribute("class", 'fa fa-play-circle startstop fa-4x');        
         $('span#watch')[0].setAttribute("value", 'Start');
 
+        /*
         a_window = window.open('popup.html', {
                 "position": "center",
                 "focus": true,
@@ -104,24 +141,14 @@ function stopWatch() {
                 "width": 901,
                 "height": 127
         });
+        */
+        timer2 = setInterval('pomodoriEnd()', 500);
+
 
     } else {
         percent = 100 - ((seconds / timerSeconds) * 100);
         drawTimer(percent, seconds);
-    }
-
-
-    Date.prototype.getWeek = function() {
-        var onejan = new Date(this.getFullYear(), 0, 1);
-        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-    }
-
-    var weekNumber = (new Date()).getWeek();
-
-    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var now = new Date();
-    $('#toto').html(dayNames[now.getDay()] + " W" + weekNumber + "</br>" + now);    
-    
+    }    
 }
 
 $(document).ready(function () {
@@ -136,14 +163,15 @@ $(document).ready(function () {
         e.preventDefault();
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
             $('span#watch')[0].setAttribute("value", 'Stop');
-            $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle fa-lg startstop');
+            $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle startstop fa-4x');
             timerSeconds = pomodoriTime;
             timerCurrent = 0;
             timerFinish = new Date().getTime() + (timerSeconds * 1000);
-            timer = setInterval('stopWatch()', 50);
+            timer = setInterval('stopWatch()', 100);
+            clearInterval(timer2);
         } else {
             $('span#watch')[0].setAttribute("value", 'Start');
-            $('span#watch')[0].setAttribute("class", 'fa fa-play-circle fa-lg startstop');
+            $('span#watch')[0].setAttribute("class", 'fa fa-play-circle fa-4x startstop fa-4x');
             clearInterval(timer);
         }
     });
@@ -157,20 +185,16 @@ $(document).ready(function () {
                 right: 0    
             }, 200);
         $('.pomodoro').stop().animate({
-                right: '-150px'    
+                right: '-200px'    
             }, 200); 
     });
     
     $('span#pomodoro').click(function(){
         $('.datetime').stop().animate({
-            right: '-150px'
+            right: '-200px'
         }, 200);
         $('.pomodoro').stop().animate({
             right: 0
         }, 200); 
     });
-    
-    
-    
-    
 });

@@ -1,15 +1,15 @@
 .pomodoro {
     overflow:hidden;
-    height:150px;
-    width:150px;
+    height:75px;
+    width:200px;
     position:relative;
 }
 .datetime {
-    width:150px;
-    height:150px;
+    width:200px;
+    height:75px;
     position:absolute;
     top:0;
-    right:-150px;
+    right:-200px;
 }
 
 body {
@@ -19,86 +19,86 @@ body {
 .startstop {
     -webkit-app-region: no-drag;
     position: absolute;
-    top: 2px;
-    left: 52px; 
+    top: 18px;
+    left: 139px;
 }
 
 .conf {
     -webkit-app-region: no-drag;
     position: absolute;
-    top: 2px;
-    left: 30px; 
+    top: 3px;
+    left: 25px; 
+    
+    visibility: hidden;
 }
 
 .quit {
     -webkit-app-region: no-drag;
     position: absolute;
-    top: 2px;
-    left: 100px;    
+    top: 3px;
+    left: 5px;   
+    
+    visibility: hidden;
 }
 
 .date {
     -webkit-app-region: no-drag;
     position: absolute;
     top: 2px;
-    left: 75px;
+    left: 50px;
 }
 
 .pomodori {
     -webkit-app-region: no-drag;
-    color:red;
+    color:rgb(195, 41, 41);
     position: absolute;
     top: 94px;
     left: 30px;
 }
 
-.done1 {
-    top:  99px;
-    left: 46px;    
+.pomodori1 {
+    top:  60px;
+    left: 5px;    
 }
-.done2 {
-    top:  93px;
-    left: 30px;    
+.pomodori2 {
+    top:  60px;
+    left: 20px;    
 }
-.done3 {
-    top:  83px;
-    left: 18px;    
+.pomodori3 {
+    top:  60px;
+    left: 35px;    
 }
-.done4 {
-    top: 70px;
-    left: 10px;    
+.pomodori4 {
+    top: 60px;
+    left: 50px;    
 }
-.done5 {
-    top: 55px;
-    left: 6px;
+.pomodori5 {
+    top: 60px;
+    left: 65px;
 }
-.done6 {
-    top: 40px;
-    left: 7px;
+.pomodori6 {
+    top: 60px;
+    left: 80px;
 }
-
-.todo1 {
-    top:  99px;
-    left: 63px;    
+.pomodori7 {
+    top: 60px;
+    left: 110px;
 }
-.todo2 {
-    top:  93px;
-    left: 77px;    
-}
-.todo3 {
-    top:  83px;
-    left: 89px;    
-}
-.todo4 {
-    top: 70px;
-    left: 98px;    
-}
-.todo5 {
-    top: 55px;
-    left: 101px;    
-}
-.todo6 {
-    top: 40px;
-    left: 100px;    
+.pomodori8 {
+    top: 60px;
+    left: 95px;
 }
 
+.counter {
+    -webkit-app-region: drag;
+    position: absolute;
+    top: 0px;
+    left: 125px;
+}
+
+.counter2 {
+    -webkit-app-region: drag;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

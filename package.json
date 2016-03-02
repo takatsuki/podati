@@ -10,8 +10,8 @@
   "window": {
     "frame": false,
     "toolbar": false,
-    "width": 150,
-    "height": 150,
+    "width": 200,
+    "height": 75,
     "transparent": true,
     "resizable": false,
     "fullscreen": false

@@ -27,33 +27,29 @@
     <body style="-webkit-app-region: drag; background-color:rgba(204, 204, 204, 0.0);">
         
         <div class="pomodoro">
-            <canvas style="-webkit-app-region: drag; position: absolute; top: 8px; left: 10px;" id="myCanvas" width="100" height="100"> </canvas>
+            <canvas class="counter" id="myCanvas" width="75" height="75"></canvas>
+            <canvas class="counter2" id="myCanvas2" width="125" height="75"></canvas>
 
-            <span class="fa fa-play-circle fa-lg startstop" id="watch" value="Stop"></span>
-            <span class="fa fa-gear fa-lg conf"></span>
-            <span class="fa fa-times-circle fa-lg quit"></span>
+            <span class="fa fa-play-circle startstop fa-4x" id="watch" value="Stop"></span>
+            <span class="fa fa-gear conf fa-lg"></span>
+            <span class="fa fa-times-circle quit fa-lg"></span>
 
-            <span class="date fa fa-calendar fa-lg" id="calendar"></span>
+            <span class="fa fa-calendar date fa-lg" id="calendar"></span>
 
 
-            <span class="fa fa-circle pomodori done1"  ></span>
-            <span class="fa fa-circle pomodori done2"  ></span>
-            <span class="fa fa-circle pomodori done3"  ></span>
-            <span class="fa fa-circle pomodori done4"  ></span>
-            <span class="fa fa-circle pomodori done5"  ></span>
-            <span class="fa fa-circle pomodori done6"  ></span>
-
-            <span class="fa fa-circle-o pomodori todo1"  ></span>
-            <span class="fa fa-circle-o pomodori todo2"  ></span>
-            <span class="fa fa-circle-o pomodori todo3"  ></span>
-            <span class="fa fa-circle-o pomodori todo4"  ></span>
-            <span class="fa fa-circle-o pomodori todo5"  ></span>
-            <span class="fa fa-circle-o pomodori todo6"  ></span>
+            <span class="fa fa-circle pomodori pomodori1"  ></span>
+            <span class="fa fa-circle pomodori pomodori2"  ></span>
+            <span class="fa fa-circle pomodori pomodori3"  ></span>
+            <span class="fa fa-circle-o pomodori pomodori4"  ></span>
+            <span class="fa fa-circle-o pomodori pomodori5"  ></span>
+            <span class="fa fa-circle-o pomodori pomodori6"  ></span>
+            <span class="fa fa-circle-o pomodori pomodori7"  ></span>
+            <span class="fa fa-circle-o pomodori pomodori8"  ></span>
 
         </div>
         
         <div class="datetime">
-            <span style="-webkit-app-region: no-drag; position: absolute; top: 51px; left: 102px;" class="fa fa-clock-o fa-lg" id="pomodoro"></span>
+            <span class="fa fa-clock-o fa-lg date" id="pomodoro"></span>
             <div id="toto"></div>
         </div>
         <script src="script.js"></script>
