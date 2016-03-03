@@ -1,4 +1,5 @@
-"use strict";
+/*jslint browser: true*/
+/*global $, jQuery, alert*/
 
 var timer;
 var timer2;
@@ -17,15 +18,38 @@ var pomodoriLongBreak = 4;
 var currentPomodori   = 1;
 var bool = false;
 
+function updatePomodori() {
+    'use strict';
+    var i;
+    
+    for (i = 1; i <= pomodoriNb; i = i + 1) {
+        $('span.pomodori' + i)[0].style.visibility = 'visible';
+        if (i < currentPomodori) {
+            $('span.pomodori' + i).removeClass("fa-circle-o").addClass("fa-circle");
+        } else {
+            $('span.pomodori' + i).removeClass("fa-circle").addClass("fa-circle-o");
+        }
+    }
+
+    for (i = pomodoriNb + 1; i <= pomodoriMaxNb; i = i + 1) {
+        $('span.pomodori' + i)[0].style.visibility = 'hidden';
+    }
+
+    if (currentPomodori > pomodoriNb) {
+        currentPomodori = 0;
+    }
+}
+
 function pomodoriEnd() {
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
-    var x = canvas.width / 2;
-    var y = canvas.height / 2;
-    var radius = 26;
-    var startAngle = 1.5 * Math.PI;
-    var endAngle = 360 * Math.PI / 180 + 1.5 * Math.PI;
-    var counterClockwise = false;
+    'use strict';
+    var canvas = document.getElementById('myCanvas'),
+        context = canvas.getContext('2d'),
+        x = canvas.width / 2,
+        y = canvas.height / 2,
+        radius = 26,
+        startAngle = 1.5 * Math.PI,
+        endAngle = 360 * Math.PI / 180 + 1.5 * Math.PI,
+        counterClockwise = false;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -45,6 +69,7 @@ function pomodoriEnd() {
 }
 
 function get2D(num) {
+    'use strict';
     if (num.toString().length < 2) {// Integer of less than two digits
         return ("0" + num); // Prepend a zero!
     }
@@ -52,12 +77,22 @@ function get2D(num) {
 }
 
 function drawTimer(percent, time) {
-    var displaySec = 0, displayMin = 0, deg = 0;
-
-    deg = 360 / 100 * percent;
+    'use strict';
+    var displaySec = 0,
+        displayMin = 0,
+        deg = 360 / 100 * percent,
+        canvas  = document.getElementById('myCanvas'),
+        context = canvas.getContext('2d'),
+        x = canvas.width / 2,
+        y = canvas.height / 2,
+        radius = 25,
+        startAngle = 1.5 * Math.PI,
+        endAngle = deg * Math.PI / 180 + 1.5 * Math.PI,
+        counterClockwise = false;
 
     displaySec = (time % 60).toFixed(0);
-    if (displaySec == 60) {
+
+    if (displaySec === 60) {
         displayMin = (Math.floor((time / 60)) + 1).toFixed(0);
         displaySec = 0;
     } else {
@@ -65,15 +100,6 @@ function drawTimer(percent, time) {
     }
 
     $('.percent').html(get2D(displayMin) + ':' + get2D(displaySec));
-
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
-    var x = canvas.width / 2;
-    var y = canvas.height / 2;
-    var radius = 25;
-    var startAngle = 1.5 * Math.PI;
-    var endAngle = deg * Math.PI / 180 + 1.5 * Math.PI;
-    var counterClockwise = false;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -86,8 +112,8 @@ function drawTimer(percent, time) {
 
     context.stroke();
 
-    var canvas = document.getElementById('myCanvas2');
-    var context = canvas.getContext('2d');
+    canvas  = document.getElementById('myCanvas2');
+    context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     context.font = "50px Arial";
@@ -100,6 +126,7 @@ function drawTimer(percent, time) {
 }
 
 function stopWatch() {
+    'use strict';
     var seconds = 0, percent = 0, a_window;
 
     seconds = (timerFinish - (new Date().getTime())) / 1000;
@@ -110,11 +137,14 @@ function stopWatch() {
 
         clearInterval(timer);
 
-        $('span#watch')[0].setAttribute("class", 'fa fa-play-circle startstop fa-4x');        
+        $('span#watch')[0].setAttribute("class", 'fa fa-play-circle startstop fa-4x');
         $('span#watch')[0].setAttribute("value", 'Start');
 
-        timer2 = setInterval('pomodoriEnd()', 500);
-        currentPomodori ++;
+        timer2 = setInterval(function () {
+            pomodoriEnd();
+        }, 500);
+
+        currentPomodori = currentPomodori + 1;
         updatePomodori();
     } else {
         percent = 100 - ((seconds / timerSeconds) * 100);
@@ -123,6 +153,7 @@ function stopWatch() {
 }
 
 $(document).ready(function () {
+    'use strict';
 
     $('span#watch').click(function (e) {
         e.preventDefault();
@@ -132,17 +163,22 @@ $(document).ready(function () {
             timerSeconds = pomodoriTime;
             timerCurrent = 0;
             timerFinish = new Date().getTime() + (timerSeconds * 1000);
-            timer = setInterval('stopWatch()', 50);
+            timer = setInterval(function () {
+                stopWatch();
+            }, 50);
+
             clearInterval(timer2);
             drawTimer(0, pomodoriTime);
-        } else if ($('span#watch')[0].getAttribute("value") === 'Stop')  {
+        } else if ($('span#watch')[0].getAttribute("value") === 'Stop') {
             $('span#watch')[0].setAttribute("value", 'Start');
             $('span#watch')[0].setAttribute("class", 'fa fa-play-circle-o fa-4x startstop fa-4x');
             clearInterval(timer);
-        } else if ($('span#watch')[0].getAttribute("value") === 'Pause')  {
+        } else if ($('span#watch')[0].getAttribute("value") === 'Pause') {
             $('span#watch')[0].setAttribute("value", 'Stop');
             $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o fa-4x startstop fa-4x');
-            timer = setInterval('stopWatch()', 50);
+            timer = setInterval(function () {
+                stopWatch();
+            }, 50);
         }
     });
 
@@ -159,16 +195,16 @@ $(document).ready(function () {
         }
     });
     
-    $('span#calendar').click(function(){
+    $('span#calendar').click(function () {
         $('.datetime').stop().animate({
-                right: 0    
-            }, 200);
+            right: 0
+        }, 200);
         $('.pomodoro').stop().animate({
-                right: '-200px'    
-            }, 200); 
+            right: '-200px'
+        }, 200);
     });
     
-    $('span#pomodoro').click(function(){
+    $('span#pomodoro').click(function () {
         $('.datetime').stop().animate({
             right: '-200px'
         }, 200);
@@ -180,31 +216,13 @@ $(document).ready(function () {
     
     $('span#watch').click();
     
-    drawTimer(0, pomodoriTime);    
+    drawTimer(0, pomodoriTime);
 
     //var win = require('nw.gui').Window.get();
     //win.setAlwaysOnTop(true);
     updatePomodori();
 });
 
-function updatePomodori () {
-
-    for (var i = 1; i <= pomodoriNb; i++) {
-        $('span.pomodori' + i)[0].style.visibility='visible';
-        if ( i < currentPomodori) {
-            $('span.pomodori' + i).removeClass( "fa-circle-o" ).addClass( "fa-circle" );
-        } else {
-            $('span.pomodori' + i).removeClass( "fa-circle" ).addClass( "fa-circle-o" );
-        }
-    } 
-    for (var i = pomodoriNb+1; i <= pomodoriMaxNb; i++) {
-        $('span.pomodori' + i)[0].style.visibility='hidden';
-    }
-
-    if ( currentPomodori > pomodoriNb ) {
-        currentPomodori = 0;
-    }
-}
 
 /*
     Date.prototype.getWeek = function () {
