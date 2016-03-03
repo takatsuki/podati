@@ -7,9 +7,9 @@ var timerCurrent;
 var timerFinish;
 var timerSeconds;
 
-var pomodoriTime   =  25*60; //* 60;
-var shortBreakTime =   5; //* 60;
-var longBreakTime  =  15; //* 60;
+var pomodoriTime   =   20; //5* 60;
+var shortBreakTime =   5; // * 60;
+var longBreakTime  =  15; // * 60;
 
 var pomodoriNb        = 7;
 var pomodoriMaxNb     = 8;
@@ -18,7 +18,6 @@ var currentPomodori   = 1;
 var bool = false;
 
 function pomodoriEnd() {
-
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
     var x = canvas.width / 2;
@@ -43,7 +42,6 @@ function pomodoriEnd() {
         bool = true;
     }
     context.stroke();
-
 }
 
 function get2D(num) {
@@ -102,7 +100,6 @@ function drawTimer(percent, time) {
 }
 
 function stopWatch() {
-
     var seconds = 0, percent = 0, a_window;
 
     seconds = (timerFinish - (new Date().getTime())) / 1000;
@@ -131,19 +128,37 @@ $(document).ready(function () {
         e.preventDefault();
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
             $('span#watch')[0].setAttribute("value", 'Stop');
-            $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle startstop fa-4x');
+            $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o startstop fa-4x');
             timerSeconds = pomodoriTime;
             timerCurrent = 0;
             timerFinish = new Date().getTime() + (timerSeconds * 1000);
             timer = setInterval('stopWatch()', 50);
             clearInterval(timer2);
-        } else {
+            drawTimer(0, pomodoriTime);
+        } else if ($('span#watch')[0].getAttribute("value") === 'Stop')  {
             $('span#watch')[0].setAttribute("value", 'Start');
-            $('span#watch')[0].setAttribute("class", 'fa fa-play-circle fa-4x startstop fa-4x');
+            $('span#watch')[0].setAttribute("class", 'fa fa-play-circle-o fa-4x startstop fa-4x');
             clearInterval(timer);
+        } else if ($('span#watch')[0].getAttribute("value") === 'Pause')  {
+            $('span#watch')[0].setAttribute("value", 'Stop');
+            $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o fa-4x startstop fa-4x');
+            timer = setInterval('stopWatch()', 50);
         }
     });
 
+    $('span#watch').dblclick(function (e) {
+    });
+
+    $('span#watch').contextmenu(function (e) {
+        if ($('span#watch')[0].getAttribute("value") === 'Stop') {
+            $('span#watch')[0].setAttribute("value", 'Pause');
+            $('span#watch')[0].setAttribute("class", 'fa fa-pause-circle-o fa-4x startstop fa-4x');
+            
+            clearInterval(timer);
+            
+        }
+    });
+    
     $('span#calendar').click(function(){
         $('.datetime').stop().animate({
                 right: 0    
