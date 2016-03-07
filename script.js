@@ -20,6 +20,7 @@ var bool = false;
 
 function updatePomodori() {
     'use strict';
+
     var i;
     
     for (i = 1; i <= pomodoriNb; i = i + 1) {
@@ -42,6 +43,7 @@ function updatePomodori() {
 
 function pomodoriEnd() {
     'use strict';
+
     var canvas = document.getElementById('myCanvas'),
         context = canvas.getContext('2d'),
         x = canvas.width / 2,
@@ -70,6 +72,7 @@ function pomodoriEnd() {
 
 function get2D(num) {
     'use strict';
+
     if (num.toString().length < 2) {// Integer of less than two digits
         return ("0" + num); // Prepend a zero!
     }
@@ -127,14 +130,14 @@ function drawTimer(percent, time) {
 
 function stopWatch() {
     'use strict';
-    var seconds = 0, percent = 0, a_window;
+    var seconds = 0,
+        percent = 0,
+        a_window;
 
     seconds = (timerFinish - (new Date().getTime())) / 1000;
 
     if (seconds <= 0) {
-
         //drawTimer(100, pomodoriTime);
-
         clearInterval(timer);
 
         $('span#watch')[0].setAttribute("class", 'fa fa-play-circle startstop fa-4x');
@@ -155,6 +158,8 @@ function stopWatch() {
 $(document).ready(function () {
     'use strict';
 
+
+    
     $('span#watch').click(function (e) {
         e.preventDefault();
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
@@ -169,11 +174,15 @@ $(document).ready(function () {
 
             clearInterval(timer2);
             drawTimer(0, pomodoriTime);
+
         } else if ($('span#watch')[0].getAttribute("value") === 'Stop') {
+
             $('span#watch')[0].setAttribute("value", 'Start');
             $('span#watch')[0].setAttribute("class", 'fa fa-play-circle-o fa-4x startstop fa-4x');
             clearInterval(timer);
+
         } else if ($('span#watch')[0].getAttribute("value") === 'Pause') {
+
             $('span#watch')[0].setAttribute("value", 'Stop');
             $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o fa-4x startstop fa-4x');
             timer = setInterval(function () {
@@ -182,8 +191,7 @@ $(document).ready(function () {
         }
     });
 
-    $('span#watch').dblclick(function (e) {
-    });
+    $('span#watch').dblclick(function (e) { });
 
     $('span#watch').contextmenu(function (e) {
         if ($('span#watch')[0].getAttribute("value") === 'Stop') {
@@ -221,6 +229,30 @@ $(document).ready(function () {
     //var win = require('nw.gui').Window.get();
     //win.setAlwaysOnTop(true);
     updatePomodori();
+/*
+    require("d3")
+    require("cal-heatmap");
+    var calendar_opeb = new CalHeatMap();
+    
+    calendar_opeb.init({
+        start: new Date("2016/02"),
+        domain: "month",
+        range: 3,
+        cellSize: 10,
+        //cellRadius: 7,
+        legendVerticalPosition: "center",
+        legendOrientation: "vertical",
+        highlight: "now",
+        data: {"1457101844": 10,
+               "1457136000": 1},
+        legend: [7, 8, 9, 10, 11, 12],
+        displayLegend: false
+        //domain: "month",
+        //subDomain: "x_day",
+        //subDomainTextFormat: "%d"
+    });
+*/
+  
 });
 
 

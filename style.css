@@ -1,11 +1,11 @@
 .pomodoro {
-    height:75px;
+    height:110px;
     overflow:hidden;
     position:relative;
     width:200px;
 }
 .datetime {
-    height:75px;
+    height:110px;
     position:absolute;
     right:-200px;
     top:0;
@@ -13,7 +13,11 @@
 }
 
 body {
+    -webkit-app-region: drag;
+    background-color:rgba(0, 0, 0, 0.0);
+    height:110px;
     overflow:hidden;
+    width:200px;
 }
 
 .startstop {
@@ -41,9 +45,9 @@ body {
 
 .date {
     -webkit-app-region: no-drag;
-    left: 50px;
+    left: 180px;
     position: absolute;
-    top: 2px;
+    top: 55px;
 }
 
 .pomodori {
