@@ -9,9 +9,9 @@ var timerFinish;
 var timerSeconds;
 var bool = false;
 
-var pomodoriTime   =   5; //25 * 60;
-var shortBreakTime =   2; // 5 * 60;
-var longBreakTime  =   30; //15 * 60;
+var pomodoriTime   =   10; //25 * 60;
+var shortBreakTime =   2;  // 5 * 60;
+var longBreakTime  =   5;  //15 * 60;
 
 var pomodoriNb        = 7;
 var pomodoriMaxNb     = 8;
