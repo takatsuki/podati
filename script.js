@@ -158,11 +158,11 @@ function stopWatch() {
         }, 500);
         
         /// Timer end
-        if(isWorkingTime == true) {
+        if (isWorkingTime === true) {
             isWorkingTime = false;
             currentPomodori = currentPomodori + 1;
         } else {
-            isWorkingTime =true;
+            isWorkingTime = true;
         }
 
         updatePomodori();
@@ -179,13 +179,13 @@ $(document).ready(function () {
     $('span#watch').click(function (e) {
         var timerValue = 0;
 
-        if(isWorkingTime) {
+        if (isWorkingTime) {
             timerValue = pomodoriTime;
         } else {
-            if(currentPomodori % (ratioLongBreak + 1)) {
+            if (currentPomodori % (ratioLongBreak + 1)) {
                 timerValue = shortBreakTime;
             } else {
-                timerValue = longBreakTime
+                timerValue = longBreakTime;
             }
         }
 
