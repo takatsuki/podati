@@ -7,16 +7,18 @@ var timer2;
 var timerCurrent;
 var timerFinish;
 var timerSeconds;
+var bool = false;
 
-var pomodoriTime   =   20; //5* 60;
-var shortBreakTime =   5; // * 60;
-var longBreakTime  =  15; // * 60;
+var pomodoriTime   =   5; //25 * 60;
+var shortBreakTime =   2; // 5 * 60;
+var longBreakTime  =   30; //15 * 60;
 
 var pomodoriNb        = 7;
 var pomodoriMaxNb     = 8;
 var pomodoriLongBreak = 4;
 var currentPomodori   = 1;
-var bool = false;
+var ratioLongBreak = 4;
+var isWorkingTime = true;
 
 function updatePomodori() {
     'use strict';
@@ -61,10 +63,14 @@ function pomodoriEnd() {
 
     // line color
     if (bool === true) {
-        context.strokeStyle = '#d81818';
+        if (isWorkingTime) {
+            context.strokeStyle = '#18d83d';
+        } else {
+            context.strokeStyle = '#d81818';
+        }
         bool = false;
     } else {
-        context.strokeStyle = '#18d83d';
+        context.strokeStyle = '#ffffff';
         bool = true;
     }
     context.stroke();
@@ -111,8 +117,12 @@ function drawTimer(percent, time) {
     context.lineWidth = 7;
 
     // line color
-    context.strokeStyle = '#d81818';
-
+    if (isWorkingTime) {
+        context.strokeStyle = '#d81818';
+    } else {
+        context.strokeStyle = '#18d83d';
+    }
+    
     context.stroke();
 
     canvas  = document.getElementById('myCanvas2');
@@ -146,9 +156,17 @@ function stopWatch() {
         timer2 = setInterval(function () {
             pomodoriEnd();
         }, 500);
+        
+        /// Timer end
+        if(isWorkingTime == true) {
+            isWorkingTime = false;
+            currentPomodori = currentPomodori + 1;
+        } else {
+            isWorkingTime =true;
+        }
 
-        currentPomodori = currentPomodori + 1;
         updatePomodori();
+        
     } else {
         percent = 100 - ((seconds / timerSeconds) * 100);
         drawTimer(percent, seconds);
@@ -157,15 +175,25 @@ function stopWatch() {
 
 $(document).ready(function () {
     'use strict';
-
-
     
     $('span#watch').click(function (e) {
+        var timerValue = 0;
+
+        if(isWorkingTime) {
+            timerValue = pomodoriTime;
+        } else {
+            if(currentPomodori % (ratioLongBreak + 1)) {
+                timerValue = shortBreakTime;
+            } else {
+                timerValue = longBreakTime
+            }
+        }
+
         e.preventDefault();
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
             $('span#watch')[0].setAttribute("value", 'Stop');
             $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o startstop fa-4x');
-            timerSeconds = pomodoriTime;
+            timerSeconds = timerValue;
             timerCurrent = 0;
             timerFinish = new Date().getTime() + (timerSeconds * 1000);
             timer = setInterval(function () {
@@ -173,7 +201,7 @@ $(document).ready(function () {
             }, 50);
 
             clearInterval(timer2);
-            drawTimer(0, pomodoriTime);
+            drawTimer(0, timerValue);
 
         } else if ($('span#watch')[0].getAttribute("value") === 'Stop') {
 
