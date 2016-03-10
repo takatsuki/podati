@@ -104,3 +104,11 @@ body {
     position: absolute;
     top: 0;
 }
+
+#time {
+    color:rgb(0, 41, 41);
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    font-size : 3em;
+}

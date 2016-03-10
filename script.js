@@ -20,6 +20,45 @@ var currentPomodori   = 1;
 var ratioLongBreak = 4;
 var isWorkingTime = true;
 
+var refreshPomodori
+
+function formatPomodoroTime(duration) {
+  var timer = duration, minutes, seconds;
+  minutes = parseInt(timer / 60, 10);
+  seconds = parseInt(timer % 60, 10);
+
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  return {
+    minutes: minutes,
+      seconds: seconds
+  };
+}
+
+function displayTimer(minutes, seconds, display) {
+  display.textContent = minutes + ":" + seconds;
+}
+
+function countdown(duration, display) {
+  console.log("countdown")
+  var timer = duration;
+
+  refreshPomodori = setInterval(function () {
+    var pomodoroTime = formatPomodoroTime(timer - 1);
+
+    displayTimer(
+        pomodoroTime.minutes,
+        pomodoroTime.seconds,
+        display)
+
+    if (--timer < 0) {
+      timer = duration;
+    }
+  }, 1000);
+  return timer
+}
+
 function updatePomodori() {
     'use strict';
 
@@ -125,16 +164,16 @@ function drawTimer(percent, time) {
     
     context.stroke();
 
-    canvas  = document.getElementById('myCanvas2');
-    context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    //canvas  = document.getElementById('myCanvas2');
+    //context = canvas.getContext('2d');
+    //context.clearRect(0, 0, canvas.width, canvas.height);
 
-    context.font = "50px Arial";
-    context.fillText(get2D(displayMin) + ':' + get2D(displaySec), 0, 55);
+    //context.font = "50px Arial";
+    //context.fillText(get2D(displayMin) + ':' + get2D(displaySec), 0, 55);
 
-    // line color
-    context.strokeStyle = '#198212';
-    context.stroke();
+    //// line color
+    //context.strokeStyle = '#198212';
+    //context.stroke();
     
 }
 
@@ -188,20 +227,25 @@ $(document).ready(function () {
                 timerValue = longBreakTime;
             }
         }
+        var display = document.querySelector('#time');
 
         e.preventDefault();
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
             $('span#watch')[0].setAttribute("value", 'Stop');
             $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o startstop fa-4x');
-            timerSeconds = timerValue;
-            timerCurrent = 0;
-            timerFinish = new Date().getTime() + (timerSeconds * 1000);
-            timer = setInterval(function () {
-                stopWatch();
-            }, 50);
+            //timerSeconds = timerValue;
+            //timerCurrent = 0;
+            //timerFinish = new Date().getTime() + (timerSeconds * 1000);
+            //timer = setInterval(function () {
+            //    stopWatch();
+            //}, 50);
 
-            clearInterval(timer2);
-            drawTimer(0, timerValue);
+            //clearInterval(timer2);
+            //drawTimer(0, timerValue);
+
+            countdown(pomodoriTime, display);
+            drawTimer(0, pomodoriTime);
+            console.log("start")
 
         } else if ($('span#watch')[0].getAttribute("value") === 'Stop') {
 
