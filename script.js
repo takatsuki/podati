@@ -56,6 +56,7 @@ function countdown(duration, display) {
       timer = duration;
     }
   }, 1000);
+
   return timer
 }
 
@@ -227,31 +228,34 @@ $(document).ready(function () {
                 timerValue = longBreakTime;
             }
         }
+
         var display = document.querySelector('#time');
+        var f_pomodori = formatPomodoroTime(pomodoriTime)
+        displayTimer(f_pomodori.minutes, f_pomodori.seconds, display)
 
         e.preventDefault();
         if ($('span#watch')[0].getAttribute("value") === 'Start') {
             $('span#watch')[0].setAttribute("value", 'Stop');
             $('span#watch')[0].setAttribute("class", 'fa fa-stop-circle-o startstop fa-4x');
-            //timerSeconds = timerValue;
-            //timerCurrent = 0;
-            //timerFinish = new Date().getTime() + (timerSeconds * 1000);
-            //timer = setInterval(function () {
-            //    stopWatch();
-            //}, 50);
 
-            //clearInterval(timer2);
+            timerSeconds = timerValue;
+            timerCurrent = 0;
+            timerFinish = new Date().getTime() + (timerSeconds * 1000);
+            timer = setInterval(function () {
+                stopWatch();
+            }, 50);
+
+            clearInterval(timer2);
             //drawTimer(0, timerValue);
 
-            countdown(pomodoriTime, display);
-            drawTimer(0, pomodoriTime);
-            console.log("start")
+            var titi = countdown(pomodoriTime, display);
+            //drawTimer(0, pomodoriTime);
 
         } else if ($('span#watch')[0].getAttribute("value") === 'Stop') {
 
             $('span#watch')[0].setAttribute("value", 'Start');
             $('span#watch')[0].setAttribute("class", 'fa fa-play-circle-o fa-4x startstop fa-4x');
-            clearInterval(timer);
+            clearInterval(refreshPomodori);
 
         } else if ($('span#watch')[0].getAttribute("value") === 'Pause') {
 
